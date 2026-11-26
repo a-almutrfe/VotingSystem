@@ -1,0 +1,18 @@
+INFO:Detectors:
+Detector: timestamp
+VotingSystem.cancelElection(uint256) (contracts/VotingSystem.sol#108-114) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp >= e.commitStart (contracts/VotingSystem.sol#111)
+VotingSystem.createElection(string,string[],uint64,uint64,uint64) (contracts/VotingSystem.sol#116-149) uses timestamp for comparisons
+	Dangerous comparisons:
+	- commitStart <= block.timestamp || commitEnd <= commitStart || revealEnd <= commitEnd (contracts/VotingSystem.sol#127)
+VotingSystem.getPhase(uint256) (contracts/VotingSystem.sol#165-180) uses timestamp for comparisons
+	Dangerous comparisons:
+	- block.timestamp < e.commitStart (contracts/VotingSystem.sol#170)
+	- block.timestamp < e.commitEnd (contracts/VotingSystem.sol#173)
+	- block.timestamp < e.revealEnd (contracts/VotingSystem.sol#176)
+VotingSystem.getResult(uint256) (contracts/VotingSystem.sol#248-267) uses timestamp for comparisons
+	Dangerous comparisons:
+	- isFinal = block.timestamp >= e.revealEnd (contracts/VotingSystem.sol#266)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp
+INFO:Slither:. analyzed (1 contracts with 102 detectors), 4 result(s) found

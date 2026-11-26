@@ -1,0 +1,90 @@
+
+> voting-system@1.0.0 gas
+> hardhat test --gas-stats
+
+
+Warning: SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.
+--> .\contracts\VotingSystem.sol
+
+Compiled 1 Solidity file with solc 0.8.39 (evm target: osaka)
+
+Running Solidity tests
+
+
+Running Mocha tests
+
+
+  VotingSystem
+    Domain 1: Ownership & admin
+      ✔ sets the deployer as owner (69ms)
+      ✔ lets the owner transfer ownership
+      ✔ rejects transfer by a non-owner or to the zero address
+      ✔ pauses and unpauses election creation
+      ✔ rejects pause by a non-owner and repeated pause/unpause
+      ✔ lets the creator cancel before voting starts
+      ✔ rejects cancel by owner/outsider or after voting starts
+      ✔ rejects cancelling an already cancelled election
+    Domain 2: Election creation & reading
+      ✔ creates an election and stores its data
+      ✔ rejects an empty title, fewer than 2 candidates, or an empty name
+      ✔ rejects invalid times
+      ✔ moves through Registration, Commit, Reveal and Ended phases by time
+      ✔ rejects reading a non-existent election or candidate
+    Domain 3: Voter registration
+      ✔ lets the creator register a voter
+      ✔ rejects registration by a non-creator, of the zero address, or twice
+      ✔ lets the creator remove a voter
+      ✔ rejects register/remove after voting starts or on a cancelled election
+      ✔ keeps voters separate per election
+    Domain 4: Commit-reveal & results
+      ✔ lets a registered voter commit a hidden vote
+      ✔ rejects commits that are unregistered, outside the window, repeated, or empty
+      ✔ counts a correctly revealed vote
+      ✔ rejects reveals that do not match, are repeated, have no commit, or are outside the window
+      ✔ stops a voter from copying another voter's hash
+      ✔ declares a winner
+      ✔ declares a tie
+      ✔ clears a tie when a later vote breaks it
+      ✔ reports no votes when nobody reveals
+      ✔ binds the vote hash to one election
+      ✔ reports a cancelled election in the result
+
+
+  29 passing (248ms)
+
+
+29 passing (29 mocha)
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║                           Gas Usage Statistics                           ║
+╚══════════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════════╗
+║ contracts/VotingSystem.sol:VotingSystem                                  ║
+╟───────────────────┬─────────┬─────────┬─────────┬─────────┬──────────────╢
+║ Function name     │ Min     │ Average │ Median  │ Max     │ #calls       ║
+╟───────────────────┼─────────┼─────────┼─────────┼─────────┼──────────────╢
+║ cancelElection    │ 32448   │ 32448   │ 32448   │ 32448   │ 4            ║
+║ commitVote        │ 58361   │ 58367   │ 58367   │ 58373   │ 18           ║
+║ createElection    │ 148101  │ 164668  │ 165141  │ 188963  │ 7            ║
+║ electionCount     │ 23403   │ 23403   │ 23403   │ 23403   │ 1            ║
+║ getCandidate      │ 31451   │ 31451   │ 31451   │ 31451   │ 2            ║
+║ getElection       │ 34422   │ 34422   │ 34422   │ 34422   │ 7            ║
+║ getPhase          │ 25977   │ 27859   │ 28286   │ 28452   │ 5            ║
+║ getResult         │ 28477   │ 28598   │ 28638   │ 28648   │ 7            ║
+║ getVoter          │ 28826   │ 28828   │ 28826   │ 28838   │ 6            ║
+║ owner             │ 23444   │ 23444   │ 23444   │ 23444   │ 2            ║
+║ pauseCreation     │ 27709   │ 27709   │ 27709   │ 27709   │ 2            ║
+║ registerVoter     │ 56405   │ 56413   │ 56417   │ 56417   │ 11           ║
+║ removeVoter       │ 34396   │ 34402   │ 34402   │ 34408   │ 2            ║
+║ revealVote        │ 49946   │ 71649   │ 67046   │ 87050   │ 13           ║
+║ transferOwnership │ 28737   │ 28737   │ 28737   │ 28737   │ 1            ║
+║ unpauseCreation   │ 27673   │ 27673   │ 27673   │ 27673   │ 1            ║
+╟───────────────────┼─────────┼─────────┼─────────┼─────────┼──────────────╢
+║ Deployment        │ Min     │ Average │ Median  │ Max     │ #deployments ║
+╟───────────────────┼─────────┼─────────┼─────────┼─────────┼──────────────╢
+║                   │ 1576738 │ 1576738 │ 1576738 │ 1576738 │ 3            ║
+╟───────────────────┼─────────┼─────────┴─────────┴─────────┴──────────────╢
+║ Bytecode size     │ 6942    │                                            ║
+╚═══════════════════╧═════════╧════════════════════════════════════════════╝
+
+
